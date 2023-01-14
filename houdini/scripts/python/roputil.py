@@ -209,7 +209,7 @@ class Menu(object):
             if g.find(self.__name):
                 g.remove(self.__name)
             # Create the parm template
-            parm_template = hou.MenuParmTemplate(self.__name, self.__label, self.__values, menu_labels=self.__labels, script_callback=self.__script, script_callback_language=hou.scriptLanguage.Python)
+            parm_template = hou.MenuParmTemplate(self.__name, self.__label, self.__values, menu_labels=self.__labels, script_callback=self.__script, script_callback_language=hou.scriptLanguage.Python, tags={'is_ovfx_parm': '1'})
             # Set the combo label visibility
             parm_template.hideLabel(not self.__label)
 
@@ -218,9 +218,15 @@ class Menu(object):
             elif self.__position == 'after': # set the combo after the parm
                 g.insertAfter(self.__adjacent_parm, parm_template)
             elif self.__position == 'join': # set the combo at the end of the parm
+                # Set a tag that tells which parameter it's joined to
+                tags = parm_template.tags()
+                tags['ovfx_join_parm'] = self.__adjacent_parm
+                parm_template.setTags(tags)
+                # Join the parm
                 g.insertAfter(self.__adjacent_parm, parm_template)
                 t = g.find(self.__adjacent_parm) # The parm which to place next to
                 t.setJoinWithNext(True)
+                # Apply the parmTemplateGroup
                 g.replace(self.__adjacent_parm, t)
 
             node.setParmTemplateGroup(g)
@@ -258,12 +264,17 @@ class Button(object):
         if node.type().definition().parmTemplateGroup().find(self.__name):
             raise ovfx.AlreadyExists('Cannot add button named: {}. A parameter with the same name already exists on the HDA.'.format(self.__name))
         # Create the parm template
-        parm_template = hou.ButtonParmTemplate(self.__name, self.__label, script_callback=self.__script, script_callback_language=hou.scriptLanguage.Python)
+        parm_template = hou.ButtonParmTemplate(self.__name, self.__label, script_callback=self.__script, script_callback_language=hou.scriptLanguage.Python, tags={'is_ovfx_parm': '1'})
         if self.__position == 'before': # set the combo before the parm
             g.insertBefore(self.__adjacent_parm, parm_template)
         elif self.__position == 'after': # set the combo after the parm
             g.insertAfter(self.__adjacent_parm, parm_template)
         elif self.__position == 'join': # set the combo at the end of the parm
+            # Set a tag that tells which parameter it's joined to
+            tags = parm_template.tags()
+            tags['ovfx_join_parm'] = self.__adjacent_parm
+            parm_template.setTags(tags)
+            # Join the parm
             g.insertAfter(self.__adjacent_parm, parm_template)
             t = g.find(self.__adjacent_parm) # The parm which to place next to
             t.setJoinWithNext(True)
@@ -320,6 +331,26 @@ class Node(object):
             ovfx_key = 'ovfx:presets:'
             if key[:len(ovfx_key)] == ovfx_key:
                 node.destroyUserData(key)
+
+    @staticmethod
+    def delete_ovfx_parms(node):
+        """
+        Delete all spare parameters with the tag attribute is_ovfx_parm=1.
+
+        This tag attribute is attribute is added to all dynamic parameters created
+        by the ovfx tool like preset menus or push buttons.
+        """
+        g = node.parmTemplateGroup()
+        for p in node.parms():
+            if 'is_ovfx_parm' in p.parmTemplate().tags():
+                if 'ovfx_join_parm' in p.parmTemplate().tags():
+                    join_parm_name = p.parmTemplate().tags()['ovfx_join_parm']
+                    t = g.find(join_parm_name)
+                    if t is not None: # the parameter might have already been removed
+                        t.setJoinWithNext(False) # Uncheck the join with next parm
+                        g.replace(join_parm_name, t)
+                g.remove(p.parmTemplate()) # Remove the parm
+        node.setParmTemplateGroup(g)
 
     @staticmethod
     def file_info(path, show_size=True):

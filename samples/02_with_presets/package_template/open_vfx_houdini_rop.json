@@ -5,7 +5,7 @@
             "OVFX_PACKAGE_ROOT" : "/media/data/trinix/pipeline/OpenVFX"
         },
         {
-            "OVFX_CONFIG_DIR" : "$OVFX_PACKAGE_ROOT/open-vfx-houdini-rop/samples/config"
+            "OVFX_CONFIG_DIR" : "$OVFX_PACKAGE_ROOT/open-vfx-houdini-rop/samples/02_with_presets/config"
         },
         {
             "PYTHONPATH" : [

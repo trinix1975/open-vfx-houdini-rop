@@ -1,0 +1,21 @@
+{
+
+    "env": [
+        {
+            "OVFX_PACKAGE_ROOT" : "/media/data/trinix/pipeline/OpenVFX"
+        },
+        {
+            "OVFX_CONFIG_DIR" : "$OVFX_PACKAGE_ROOT/open-vfx-houdini-rop/samples/01_simple/config"
+        },
+        {
+            "PYTHONPATH" : [
+                "$OVFX_PACKAGE_ROOT/open-vfx-houdini-rop/samples/python/lib/python3.7",
+                "$OVFX_PACKAGE_ROOT/open-vfx-framework/python"],
+                    "method": "append"
+        }
+
+    ],
+
+    "path" : "$OVFX_PACKAGE_ROOT/open-vfx-houdini/houdini:$OVFX_PACKAGE_ROOT/open-vfx-houdini-rop/houdini"
+
+}
