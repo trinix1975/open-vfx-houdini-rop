@@ -16,4 +16,4 @@ Open VFX Houdini Rop needs the Open VFX Houdini package (and Open VFX framework 
 This package comes with a **houdini** folder containing the HDAs and Python scripts 
 
 ## Configuration
-Pleas read [CONFIGURATION.md] for more information on how to customize the Rop nodes so they use the studio custom locations.
+Pleas read [CONFIGURATION.md](CONFIGURATION.md) for more information on how to customize the Rop nodes so they use the studio custom locations.
