@@ -1,18 +1,20 @@
 # Open VFX Houdini ROP Samples
 
-A samples folder structure to demonstrate a pre-configured example of the Open VFX Geometry Cache node to use in the Houdini Sop context.
+Pre-configured examples of the Open VFX Geometry Cache node to use in the Houdini Sop context.
 
 ## Description
 
 This folder includes the following:
 
+* 01_simple to demonstrate the simplest usage of the OVFX Geometry Cache
+* 02_with_presets is similar to the previous but it adds presets with menus to control the cache format (bgeo or vdb). Adds also a browse and delete cache button.
 * The Python yaml library (for both python 2.7 and 3.7)
 * A fake project folder structure that includes shots and assets
 * A [Houdini package](https://www.sidefx.com/docs/houdini/ref/plugins.html) file to configure the environment variables.
 * The Open VFX configuration files *fragment.yaml* and *location.yaml*
 * The *ovfx_geometry_cache.py* that is used to customize geometry cache paths
 
-This example is meant to be self contained. In a production environment it's likely that the open-vfx-framework will live in a different place than the 2 other repositories.
+Those examples are meant to be self contained. In a production environment it's possible that the open-vfx-framework will live in a different place than the 2 other repositories.
 
 The yaml library will probably live along other common Python libraries and made available from studio environment that includes it at the shell level.
 
@@ -29,7 +31,7 @@ For this example to work, the following repositories must live in the same folde
 * $HOME/OpenVFX/open-vfx-houdini-rop
 
 ### Houdini Json Package File
-Copy ./package_template/open_vfx_houdini_rop.json or create a symbolic link into a folder where Houdini will recognize the package file and source it. As a test for the current user, this folder can be $HOME/houdiniX.Y/packages.
+Copy ./01_simple/package_template/open_vfx_houdini_rop.json or create a symbolic link into a folder where Houdini will recognize the package file and source it. As a test for the current user, this folder can be $HOME/houdiniX.Y/packages.
 
 A few environment variables defined in the json file refer to the $OVFX_PACKAGE_ROOT variable. This variable should be adjusted on your end to point where the repositories are copied. From the example above this would point to $HOME/OpenVFX.
 
@@ -45,4 +47,4 @@ You can open the following scenes and confirm how the path on parameter *Output 
 * ./projects/MyMovie/assets/vehicules/car/fx/houdini/hip/MyMovie_vehicule_car_fx_setupA_v001.hip
 * ./projects/MyMovie/010/020/0030/fx/houdini/hip/MyMovie_010_020_0030_fx_setupA_v001.hip
 
-From there you can experiment with a folder structure that matches your studio standard by altering the ./config/houdini/utility/ovfx_geometry_cache.py
+From there you can experiment with a folder structure that matches your studio standard by altering the ./01_simple/config/houdini/utility/ovfx_geometry_cache.py
