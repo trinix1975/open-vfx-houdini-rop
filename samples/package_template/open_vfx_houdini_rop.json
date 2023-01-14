@@ -9,7 +9,7 @@
         },
         {
             "PYTHONPATH" : [
-                "$OVFX_PACKAGE_ROOT/open-vfx-houdini-rop/samples/python/lib/python2.7",
+                "$OVFX_PACKAGE_ROOT/open-vfx-houdini-rop/samples/python/lib/python3.7",
                 "$OVFX_PACKAGE_ROOT/open-vfx-framework/python"],
                     "method": "append"
         }
