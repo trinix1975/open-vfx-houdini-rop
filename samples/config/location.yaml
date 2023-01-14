@@ -1,0 +1,9 @@
+---
+
+ovfx:
+    software:
+        houdini:
+            scene_types:
+                shot: $OVFX_PACKAGE_ROOT/open-vfx-houdini-rop/samples/projects/<proj>/<epis>/<seq>/<shot>/<task>/houdini/hip/<proj>_<epis>_<seq>_<shot>_<task>_<scene_desc>_v<ver>.hip
+                asset: $OVFX_PACKAGE_ROOT/open-vfx-houdini-rop/samples/projects/<proj>/assets/<assetcat>/<asset>/<task>/houdini/hip/<proj>_<assetcat>_<asset>_<task>_<scene_desc>_v<ver>.hip
+            
